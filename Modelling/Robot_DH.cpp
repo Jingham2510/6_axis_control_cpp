@@ -127,7 +127,7 @@ void RobotDH::add_link(DHLink new_link, std::string config){
 void RobotDH::remove_link(int link_n){
 
     link_list.erase(link_list.begin() + link_n);
-    offset_config.erase(link_list.begin() + link_n);
+    offset_config.erase(offset_config.begin() + link_n);
 
 }
 
