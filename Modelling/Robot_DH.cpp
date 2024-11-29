@@ -132,4 +132,17 @@ void RobotDH::remove_link(int link_n){
 }
 
 
+std::vector<float> RobotDH::calc_ZYX_euler(){
+
+    float Z = atan2(orient_mat(1,0), orient_mat(0,0));
+    float Y = asin(-orient_mat(2, 0));
+    float X = atan2(orient_mat(2,1), orient_mat(2,2));
+
+    std::vector<float> euler = {Z, Y, X};
+
+    return euler;
+
+}
+
+
 

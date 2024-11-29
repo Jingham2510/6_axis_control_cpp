@@ -42,6 +42,11 @@ int main(){
         std::cout << "\n";
     }
 
+
+    for (float angle : test.calc_ZYX_euler()){
+        std::cout << angle << "\n";
+    }
+
     return 1;
 }
 
