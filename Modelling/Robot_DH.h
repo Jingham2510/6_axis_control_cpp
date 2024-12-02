@@ -21,7 +21,7 @@ class RobotDH{
         void remove_link(int);
 
         //Gets the transform matrix
-        MatrixXf get_trans();
+        Matrix4f get_trans();
 
         //Gets the position vector
         std::vector<float> get_pos();

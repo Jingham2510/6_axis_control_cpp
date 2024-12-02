@@ -37,15 +37,23 @@ int main(){
     RobotDH test = RobotDH(link_list, offset_config);
 
 
+    std::cout << "------Coordinates------" << "\n";
+
     for(float coord : test.get_pos()){
         std::cout << coord;
         std::cout << "\n";
     }
 
+    std::cout << "------Orientation------" << "\n";
 
     for (float angle : test.calc_ZYX_euler()){
         std::cout << angle << "\n";
     }
+
+
+    std::cout << "------Jacobian------" << "\n";
+    std::cout << test.get_jacobian() << "\n";
+
 
     return 1;
 }

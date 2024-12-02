@@ -25,7 +25,7 @@ void DHLink::update_hg(){
                   0     ,                              sin(alpha)   ,                        cos(alpha)   ,                        d     ,
                   0     ,                                   0        ,                            0        ,                       1     ;
         
-    std::cout << cos(theta + curr_offset) << "\n";
+    //std::cout << cos(theta + curr_offset) << "\n";
       
     return;
 }
