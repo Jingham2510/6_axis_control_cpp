@@ -1,4 +1,4 @@
-#include"DH_Link.h"
+#include"DH_Link.hpp"
 #include <iostream>
 
 DHLink::DHLink(float link_length, float link_twist, float link_offset, float joint_angle, float base_off){
