@@ -28,14 +28,11 @@ class ABB_http_client{
 
         //The server struct 
         struct sockaddr_in ABB_server;
-
-
         //Creates a socket
         void create_sock();
 
         //Connects to the ABB client for the given ip
         void connect_to_ABB();
-
 
         //Closes the connection
         void close_connection();

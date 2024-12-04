@@ -1,2 +1,5 @@
 /.vscode
 /link_test_1.exe
+/.http_test.exe
+/*.exe
+http_test.exe

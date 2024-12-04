@@ -51,18 +51,16 @@ void ABB_http_client::create_sock(){
 //Connect toe the ABB http host
 void ABB_http_client::connect_to_ABB(){
 
-    std::cout << "Connecting to server" << "\n";
+    std::cout << "Connecting to server..." << "\n";
 
     //Setup the server struct
-    ABB_server.sin_family = AF_INET;
     ABB_server.sin_addr.s_addr = inet_addr(ip);
-    ABB_server.sin_port = port;
+    ABB_server.sin_family = AF_INET;    
+    ABB_server.sin_port = htons(8888);
 
 
-
-
-
-    if(connect(sock, (SOCKADDR*) &ABB_server, sizeof(ABB_server)) < 0){
+    //Attempt to connect to the socket
+    if(connect(sock, (struct sockaddr*) &ABB_server, sizeof(ABB_server)) < 0){
 
         std::cout << "Connection error: " << WSAGetLastError() << "\n";
 
