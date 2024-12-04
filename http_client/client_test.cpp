@@ -1,11 +1,16 @@
 
-#include "ABB_http_client.hpp"
+#include "ABB_tcp_client.hpp"
 
 
 
 int main(){
 
-    ABB_http_client client = ABB_http_client("127.0.0.1", 8888);
+    ABB_tcp_client client = ABB_tcp_client("127.0.0.1", 8888);
+
+    client.ping();
+
+    client.close_connection();
+
     return 0;
 }
 
