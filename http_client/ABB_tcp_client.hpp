@@ -48,19 +48,15 @@ class ABB_tcp_client{
         //Connects to the ABB client for the given ip
         void connect_to_ABB();
 
-
-
         //Send a string of bytes
         int request(std::string);
 
         //Recieve a string of bytes
-        std::string recieve();
+        std::string recieve();    
 
+        //Helper function to create strings from vectors of floats
+        std::string com_vec_to_string(std::vector<float>);
 
-
-
-
-    
 
 };
 

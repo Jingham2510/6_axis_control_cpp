@@ -1,6 +1,8 @@
 #include "ABB_tcp_client.hpp"
 #include<iostream>
 #include<chrono>
+#include<sstream>
+
 
 //Creates and connects to the ABB http socket
 ABB_tcp_client::ABB_tcp_client(const char *client_ip, int client_port){
@@ -75,6 +77,7 @@ void ABB_tcp_client::connect_to_ABB(){
 //Closes the connection
 void ABB_tcp_client::close_connection(){
 
+    request("CLOS:1");
     closesocket(sock);
     WSACleanup();
 
@@ -143,6 +146,12 @@ void ABB_tcp_client::ping(){
 
 int ABB_tcp_client::set_joints(std::vector<float> jnt_angs){
 
+    //The command to send to the server
+    std::string cmd;
+
+    //The string stream to create the command
+    std::stringstream stream;
+
     //Check there are the correct number of joint angles    
     if (jnt_angs.size() != 6){
         std::cout << "ERR: incorrect number of joint angles!";
@@ -150,9 +159,42 @@ int ABB_tcp_client::set_joints(std::vector<float> jnt_angs){
     }
 
 
+    //A bit hacky but creates the set joint command with the correct format
+    stream << "STJT:[[" << com_vec_to_string(jnt_angs) << "], [9E9, 9E9, 9E9, 9E9, 9E9, 9E9]]";
+
+    cmd = stream.str();
+    //Send the set joint command to the ABB server
+    request(cmd);
+
+    //Print the response from the server
+    std::cout << recieve() << "\n";
+
     
+    return 1;
 
 
+
+
+}
+
+
+//Takes in a vector of floats then returns it as a string - comma seperated
+std::string ABB_tcp_client::com_vec_to_string(std::vector<float> data){
+
+    std::stringstream stream;
+
+    //Goes through the whole array and adds it
+    for(size_t i = 0; i <data.size(); i++){
+     
+        stream << data[i];
+        
+        if(i != data.size() - 1){
+            stream <<  ", ";
+        }
+
+    }
+
+    return stream.str();
 
 
 }
