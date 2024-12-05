@@ -17,13 +17,13 @@ class ABB_tcp_client{
         ABB_tcp_client(const char *, int);
 
         //connection test - sends an echo request to the server and times it 
-        void ping();
+        float ping();
 
         //Set the joints of the ABB robot
         int set_joints(std::vector<float>);
 
         //Move the tool realtive to it's current position
-        void move_tool(std::vector<float>);
+        int move_tool(std::vector<float>);
 
 
         //Closes the connection

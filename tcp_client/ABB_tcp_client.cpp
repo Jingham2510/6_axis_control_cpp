@@ -122,7 +122,7 @@ std::string ABB_tcp_client::recieve(){
 }
 
 //Connection test
-void ABB_tcp_client::ping(){
+float ABB_tcp_client::ping(){
 
     //Auto used here because the type is ridiculously long
     //mark the time
@@ -142,6 +142,8 @@ void ABB_tcp_client::ping(){
 
     std::cout << response << " - Ping complete - Time taken: " << exe_time.count() << "ms\n";
 
+    return exe_time.count();
+
 }
 
 int ABB_tcp_client::set_joints(std::vector<float> jnt_angs){
@@ -160,7 +162,8 @@ int ABB_tcp_client::set_joints(std::vector<float> jnt_angs){
 
 
     //A bit hacky but creates the set joint command with the correct format
-    stream << "STJT:[[" << com_vec_to_string(jnt_angs) << "], [9E9, 9E9, 9E9, 9E9, 9E9, 9E9]]";
+    //No need to turn external axes the robot is set
+    stream << "STJT:[[" << com_vec_to_string(jnt_angs) << "], [9E9,9E9,9E9,9E9,9E9,9E9]]";
 
     cmd = stream.str();
     //Send the set joint command to the ABB server
@@ -171,10 +174,34 @@ int ABB_tcp_client::set_joints(std::vector<float> jnt_angs){
 
     
     return 1;
+}
 
 
 
 
+int ABB_tcp_client::move_tool(std::vector<float> xyz){
+
+    //The commmand and the command constructor
+    std::string cmd;
+    std::stringstream stream;
+
+    //Check the xyz count is correct
+    if(xyz.size() != 3){
+        std::cout << "ERR: Incorrect number of coords supplied" << "\n";
+    }
+
+    stream << "MVTL:[" << com_vec_to_string(xyz) << "]";
+
+    cmd = stream.str();
+
+    request(cmd);
+
+    //Print the responses from the server
+    std::cout << recieve() << "\n";
+
+
+    
+    return 1;
 }
 
 
@@ -189,7 +216,7 @@ std::string ABB_tcp_client::com_vec_to_string(std::vector<float> data){
         stream << data[i];
         
         if(i != data.size() - 1){
-            stream <<  ", ";
+            stream <<  ",";
         }
 
     }
