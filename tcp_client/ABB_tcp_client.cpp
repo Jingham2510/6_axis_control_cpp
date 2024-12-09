@@ -137,10 +137,10 @@ float ABB_tcp_client::ping(){
     //Mark the finish time
     auto stop = std::chrono::high_resolution_clock::now();
 
+  
+    auto exe_time = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
 
-    auto exe_time = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
-
-    std::cout << response << " - Ping complete - Time taken: " << exe_time.count() << "ms\n";
+    std::cout << response << " - Ping complete - Time taken: " << exe_time.count() << "us\n";
 
     return exe_time.count();
 

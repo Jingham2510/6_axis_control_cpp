@@ -7,6 +7,8 @@ def main():
     py_latencys = ext_latencys("C:/Users/User/Documents/Results/robot_latency_tests/raw/latency_python.txt")
     cpp_latencys = ext_latencys("C:/Users/User/Documents/Results/robot_latency_tests/raw/latency_cpp.txt")
 
+
+
     plot_latencys(py_latencys, cpp_latencys)
 
     return
@@ -20,14 +22,14 @@ def ext_latencys(filename):
     #Format is the same so its line
     with open(filename) as f:
         for line in f:
-            latencys.append(line)
+            latencys.append(float(line.strip("\n")))
 
     return latencys
 
 #Plot the latencies on the same graph against the number of iterations
 def plot_latencys(py_lats, cpp_lats):
 
-    x = len(py_lats)
+    x = [i for i in range(len(py_lats))]
 
     plt.plot(x, py_lats, color="r", label="Python")
     plt.plot(x, cpp_lats, color="g", label="Cpp")
@@ -48,3 +50,4 @@ def plot_latencys(py_lats, cpp_lats):
 
 if __name__ == "__main__":
     print("Plotting")
+    main()
