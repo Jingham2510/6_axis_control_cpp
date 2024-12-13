@@ -58,13 +58,19 @@ std::vector<float> xyz_str_to_float(std::string xyz) {
 //Calculates the robots position error from the desired error
 std::vector<float> calc_line_err(std::string curr_xyz, float desired_x, float desired_y, float desired_z) {
 
+
+	std::cout << desired_y << "\n";
+
+
+
 	//Create the vector float from the string
 	std::vector<float> curr_xyz_vec = xyz_str_to_float(curr_xyz);
 
 
 
 	//Create the vector from the differences (invert to ensure the tool moves the correct direction)
-	std::vector<float> xyz_diff = {-(curr_xyz_vec[0] - desired_x), -(curr_xyz_vec[1] - desired_y), -(curr_xyz_vec[2] - desired_z)};
+	std::vector<float> xyz_diff = {-(desired_x - curr_xyz_vec[0]), (desired_y - curr_xyz_vec[1]), -(desired_z - curr_xyz_vec[2])};
+
 
 	for(int i = 0; i < xyz_diff.size(); i++){
 	
@@ -88,7 +94,7 @@ int main() {
 	//TO BE DETERMINED - filler for now! - be very careful when doing it on the real one...
 	float DES_X = 2200;
 	float DES_Z = 190;
-	std::vector<float> START_POS = {DES_X, -750, DES_Z};
+	std::vector<float> START_POS = {DES_X, -788, DES_Z};
 	std::vector<float> END_POS = {DES_X, 315, DES_Z };
 	//Steps based on distance and resolution of test
 	int STEP_RES = 1;
@@ -116,9 +122,9 @@ int main() {
 	for (int i = 0; i <= steps; i++) {
 
 		//Calculate the error from the desired pos
-		//move_vector = calc_line_err(client.get_xyz(), DES_X, START_POS[1] + (polarity * i * STEP_RES), DES_Z);		
+		move_vector = calc_line_err(client.get_xyz(), DES_X, START_POS[1] + (polarity * i * STEP_RES), DES_Z);		
 
-		move_vector = {0, 2, 0};
+		//move_vector = {0, 2, 0};
 
 		//Move the robot - ensuring that the tool attempts to stay in a straight line
 		curr_force_pos = client.move_tool(move_vector);
