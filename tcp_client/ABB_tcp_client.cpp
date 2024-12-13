@@ -180,12 +180,13 @@ int ABB_tcp_client::set_joints(std::vector<float> jnt_angs){
 
 
 //Move the tool relative to its current position
-std::vector<std::string> ABB_tcp_client::move_tool(std::vector<float> xyz){
+std::string ABB_tcp_client::move_tool(std::vector<float> xyz){
 
     //The commmand and the command constructor
     std::string cmd;
     std::stringstream cmd_stream;
     std::stringstream ret_stream;
+    std::string ret;
 
 
     //Check the xyz count is correct
@@ -203,8 +204,9 @@ std::vector<std::string> ABB_tcp_client::move_tool(std::vector<float> xyz){
     ret_stream << recieve() << "," << recieve() << "\n";
 
 
+
     
-    return 1;
+    return ret_stream.str();
 }
 
 std::string ABB_tcp_client::get_xyz() {

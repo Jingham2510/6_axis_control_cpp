@@ -18,7 +18,8 @@ Routine:
 #include<vector>
 #include<fstream>
 #include<iostream>
-#include<format>
+#include"../misc/date.h"
+	
 
 
 using namespace date;
@@ -95,12 +96,12 @@ int main() {
 
 	//Create the filename
 	std::stringstream filename;
-	filename << "C:/Users/User/Documents/Results/first_pass_tests/raw/" << std::format("{:%Y%m%d%H%M}", std::chrono::system_clock::now()) << "_first_pass.txt";
+	filename << "C:/Users/User/Documents/Results/first_pass_tests/raw/" << std::chrono::system_clock::now() << "_first_pass.txt";
 
 	//Save the data to a logfile
 	std::ofstream data_file("C:/Users/User/Documents/Results/first_pass_tests/raw/.txt");
 	for (int i = 0; i < time_data.size(); i++) {
-		data_file << i << "," << std::format("{%H}:{%M}", time_data[i]) << "," << force_pos_data[i] << "\n";
+		data_file << i << "," << time_data[i] << "," << force_pos_data[i] << "\n";
 	}
 	data_file.close();
 

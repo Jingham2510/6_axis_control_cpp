@@ -23,7 +23,7 @@ class ABB_tcp_client{
         int set_joints(std::vector<float>);
 
         //Move the tool relative to it's current position
-        std::vector<std::string> move_tool(std::vector<float>);
+        std::string move_tool(std::vector<float>);
 
         //Get the robots current xyz pos
         std::string get_xyz();
