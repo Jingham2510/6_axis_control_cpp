@@ -4756,7 +4756,7 @@ struct make_string<wchar_t>
     std::wstring
     from(Rep n)
     {
-        return std::to_wstring(n);
+        return std::wstring(n);
     }
 };
 
@@ -4768,7 +4768,7 @@ struct make_string<wchar_t, Traits>
     std::basic_string<wchar_t, Traits>
     from(Rep n)
     {
-        auto s = std::to_wstring(n);
+        auto s = std::wstring(n);
         return std::basic_string<wchar_t, Traits>(s.begin(), s.end());
     }
 };

@@ -6,7 +6,6 @@
 #define ABB_TCP_CLIENT
 
 
-
 //Relevant winsock library
 #pragma comment(lib, "ws2_32.lib")
 

@@ -200,10 +200,15 @@ std::string ABB_tcp_client::move_tool(std::vector<float> xyz){
 
     request(cmd);
 
-    //assembled
-    ret_stream << recieve() << "," << recieve() << "\n";
 
 
+    std::string pos = recieve();
+
+    std::string force = recieve();
+
+  
+    //assembled - and formatted
+    ret_stream << pos.substr(0, pos.find("]") + 1) << "," << force.substr(0, force.find("]") + 1);
 
     
     return ret_stream.str();
@@ -212,7 +217,7 @@ std::string ABB_tcp_client::move_tool(std::vector<float> xyz){
 std::string ABB_tcp_client::get_xyz() {
 
     //Send the getpos command
-    request("GTPS");
+    request("GTPS:0");
 
     return recieve();
 
