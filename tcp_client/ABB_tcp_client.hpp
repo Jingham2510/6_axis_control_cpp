@@ -22,8 +22,11 @@ class ABB_tcp_client{
         //Set the joints of the ABB robot
         int set_joints(std::vector<float>);
 
-        //Move the tool realtive to it's current position
-        int move_tool(std::vector<float>);
+        //Move the tool relative to it's current position
+        std::vector<std::string> move_tool(std::vector<float>);
+
+        //Get the robots current xyz pos
+        std::string get_xyz();
 
 
         //Closes the connection

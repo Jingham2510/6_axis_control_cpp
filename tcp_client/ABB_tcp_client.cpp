@@ -146,6 +146,7 @@ float ABB_tcp_client::ping(){
 
 }
 
+//Set the joints to a specific angle
 int ABB_tcp_client::set_joints(std::vector<float> jnt_angs){
 
     //The command to send to the server
@@ -178,32 +179,42 @@ int ABB_tcp_client::set_joints(std::vector<float> jnt_angs){
 
 
 
-
-int ABB_tcp_client::move_tool(std::vector<float> xyz){
+//Move the tool relative to its current position
+std::vector<std::string> ABB_tcp_client::move_tool(std::vector<float> xyz){
 
     //The commmand and the command constructor
     std::string cmd;
-    std::stringstream stream;
+    std::stringstream cmd_stream;
+    std::stringstream ret_stream;
+
 
     //Check the xyz count is correct
     if(xyz.size() != 3){
         std::cout << "ERR: Incorrect number of coords supplied" << "\n";
     }
 
-    stream << "MVTL:[" << com_vec_to_string(xyz) << "]";
+    cmd_stream << "MVTL:[" << com_vec_to_string(xyz) << "]";
 
-    cmd = stream.str();
+    cmd = cmd_stream.str();
 
     request(cmd);
 
-    //Print the responses from the server
-    std::cout << recieve() << "\n";
+    //assembled
+    ret_stream << recieve() << "," << recieve() << "\n";
 
 
     
     return 1;
 }
 
+std::string ABB_tcp_client::get_xyz() {
+
+    //Send the getpos command
+    request("GTPS");
+
+    return recieve();
+
+}
 
 //Takes in a vector of floats then returns it as a string - comma seperated
 std::string ABB_tcp_client::com_vec_to_string(std::vector<float> data){
